@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DevRoots - Geocodificação através da API do Google Maps</title>
+	<script src="https://maps.googleapis.com/maps/api/js?key=COLOQUE_AQUI_SUA_CHAVE_DE_API&signed_in=true" async defer></script>
+</head>
+<body>
+	<label for="cidade">Cidade:</label>
+	<input name="cidade" id="cidade" />
+	<br/>
+	<label for="rua">Rua:</label>
+	<input name="rua" id="rua" />
+	<br/>
+	<label for="numero">N&uacutemero :</label>
+	<input name="numero" id="numero" />
+	<br/>
+	<label for="bairro">Bairro :</label>
+	<input name="bairro" id="bairro" />
+	<br/>
+	<a href="#" onclick="geocodeAddress()">Buscar Coordenadas</a>
+
+	<script type="text/javascript">
+		function geocodeAddress() {
+			var cidade = document.getElementById("cidade").value;
+			var rua = document.getElementById("rua").value;
+			var numero = document.getElementById("numero").value;
+			var bairro = document.getElementById("bairro").value;
+			var address = cidade+","+rua+","+numero+","+bairro;
+
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode({'address': address}, function (results, status) {
+				if (status === google.maps.GeocoderStatus.OK) {
+					var lat =  "latitude :"+ results[0].geometry.location.lat();
+					var lng =  "longitude :"+ results[0].geometry.location.lng();
+					alert(lat+','+lng );
+				} else {
+					alert('Ouve uma falha ao realizar a pesquisa: ' + status);
+				}
+			});
+		}
+	</script>
+</body>
+</html>
